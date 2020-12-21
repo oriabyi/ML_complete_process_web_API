@@ -1,0 +1,384 @@
+{
+    "description": {
+        "X": [
+            "id",
+            "state",
+            "account length",
+            "area code",
+            "international plan",
+            "voice mail plan",
+            "number vmail messages",
+            "total day minutes",
+            "total day calls",
+            "total day charge",
+            "total eve minutes",
+            "total eve calls",
+            "total eve charge",
+            "total night minutes",
+            "total night calls",
+            "total night charge",
+            "total intl minutes",
+            "total intl calls",
+            "total intl charge",
+            "customer service calls",
+            "churn"
+        ],
+        "final_columns": [
+            "state",
+            "account length",
+            "international plan",
+            "voice mail plan",
+            "number vmail messages",
+            "total day minutes",
+            "total day calls",
+            "total day charge",
+            "total eve minutes",
+            "total eve calls",
+            "total eve charge",
+            "total night minutes",
+            "total night calls",
+            "total night charge",
+            "total intl minutes",
+            "total intl calls",
+            "total intl charge",
+            "customer service calls",
+            "churn",
+            "called_csc_more_2",
+            "total_calls",
+            "total_minutes",
+            "total_charge",
+            "category_408",
+            "category_415",
+            "category_510"
+        ],
+        "y": "churn",
+        "metrics": "accuracy_score"
+    },
+    "operations": [
+        {
+            "operation_number": 1,
+            "operation_name": "fill_nans",
+            "params": {
+                "in_columns": [
+                    "total eve minutes",
+                    "total eve charge",
+                    "total intl minutes",
+                    "total intl calls",
+                    "number vmail messages"
+                ],
+                "methods": [
+                    "mean",
+                    "mean",
+                    "mean",
+                    "mean",
+                    "mode"
+                ]
+            }
+        },
+        {
+            "operation_number": 2,
+            "operation_name": "replace",
+            "params": {
+                "in_columns": [
+                    "called_csc_more_2"
+                ],
+                "old_values": [
+                    0
+                ],
+                "new_values": [
+                    1
+                ],
+                "condition_columns": [
+                    "customer service calls"
+                ],
+                "conditions": [
+                    "greater"
+                ],
+                "condition_values": [
+                    2
+                ],
+                "defaults": [
+                    0
+                ],
+                "inplaces": [
+                    "False"
+                ]
+            }
+        },
+        {
+            "operation_number": 3,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total day charge",
+                        "total eve charge"
+                    ]
+                ],
+                "out_columns": [
+                    "total_charge"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 4,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total_charge",
+                        "total night charge"
+                    ]
+                ],
+                "out_columns": [
+                    "total_charge"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 5,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total_charge",
+                        "total intl charge"
+                    ]
+                ],
+                "out_columns": [
+                    "total_charge"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 6,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total day minutes",
+                        "total eve minutes"
+                    ]
+                ],
+                "out_columns": [
+                    "total_minutes"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 7,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total_minutes",
+                        "total night minutes"
+                    ]
+                ],
+                "out_columns": [
+                    "total_minutes"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 8,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total_minutes",
+                        "total intl minutes"
+                    ]
+                ],
+                "out_columns": [
+                    "total_minutes"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 9,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total day calls",
+                        "total eve calls"
+                    ]
+                ],
+                "out_columns": [
+                    "total_calls"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 10,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total_calls",
+                        "total night calls"
+                    ]
+                ],
+                "out_columns": [
+                    "total_calls"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 11,
+            "operation_name": "columns_combination",
+            "params": {
+                "in_columns_list": [
+                    [
+                        "total_calls",
+                        "total intl calls"
+                    ]
+                ],
+                "out_columns": [
+                    "total_calls"
+                ],
+                "coefficients_list": [
+                    [
+                        1,
+                        1
+                    ]
+                ],
+                "methods": [
+                    "addition"
+                ],
+                "biases": [
+                    0
+                ]
+            }
+        },
+        {
+            "operation_number": 12,
+            "operation_name": "encode_labels",
+            "params": {
+                "in_columns": [
+                    "state",
+                    "number vmail messages",
+                    "churn",
+                    "voice mail plan",
+                    "international plan"
+                ]
+            }
+        },
+        {
+            "operation_number": 13,
+            "operation_name": "one_hot_encode",
+            "params": {
+                "in_columns": [
+                    "area code"
+                ]
+            }
+        },
+        {
+            "operation_number": 14,
+            "operation_name": "drop_columns",
+            "params": {
+                "in_columns": [
+                    "area code",
+                    "id"
+                ]
+            }
+        }
+    ]
+}
